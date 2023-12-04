@@ -286,6 +286,51 @@ def busca_maximo_cola(cola_a_revisar:Cola)->int: #funciona
     return maximo
 print(busca_maximo_cola(colarda))
 #no hice 16,17 y 18
+#Ejercicio16. #subieron esta resolución al campus
+#Bingo:un cartón de bingo contiene 12 números al azar en el rango[0,99]. 
+#1. implementar una función armar secuencia de bingo()→Cola[int] que genereuna cola con los números del 0 al 99 ordenados al azar.
+#2. implementaruna función jugarcartondebingo(in carton:list[int],in bolillero:cola[int])→int que toma un cartón de Bingo y una cola de enteros 
+#(que corresponden a las bolillas numeradas)y determina cual es la cantidad de jugadas de ese bolillero que se necesitan para ganar.
+def armarSecuencideBingo() -> Cola:
+    #armo una lista con los numeros del 0 al 9
+    lista: list = list(range(0,10))
+    #desordena de forma random la lista
+    random.shuffle(lista)
+    #creo una cola y la lleno con los elementos de la lista
+    bolillero: Cola = Cola()
+    for bolilla in lista:
+        bolillero.put(bolilla)
+    return bolillero
+
+def jugarCartonDeBingo(carton: list, bolillero: Cola) -> int:
+    cantSinMarcar: int = len(carton)
+    jugadas: int = 0
+    bolilleroAux: Cola = Cola()
+    #mientras no marque todos los numeros del carton saco bolillas
+    while cantSinMarcar > 0:
+        num: int  = bolillero.get()
+        bolilleroAux.put(num)
+        if num in carton:
+            cantSinMarcar -= 1
+        jugadas += 1
+    
+    while not bolillero.empty():
+        num: int  = bolillero.get()
+        bolilleroAux.put(num)
+        
+    while not bolilleroAux.empty():
+        num: int  = bolilleroAux.get()
+        bolillero.put(num)
+    
+    return jugadas
+
+
+#bolillero = armarSecuencideBingo()
+#carton = [1,5]
+
+#print(list(bolillero.queue))
+#print(jugarCartonDeBingo(carton,bolillero))
+#print(list(bolillero.queue))
 #4. Diccionarios
 #Para esta secci´on vamos a usar el tipo dict que nos provee python:
 #Ejercicio 19. Leer un archivo de texto y agrupar la cantidad de palabras de acuerdo a su longitud. Implementar la funci´on
